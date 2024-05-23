@@ -176,6 +176,9 @@
     <ClInclude Include="MathHeaders\Vector4.h" />
     <ClInclude Include="TestToString.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Problems.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

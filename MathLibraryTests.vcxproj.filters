@@ -60,4 +60,7 @@
       <Filter>MathHeaders</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Problems.txt" />
+  </ItemGroup>
 </Project>
