@@ -83,6 +83,39 @@ namespace MathClasses
 			return v[dim];
 		}
 
+		Vector4 operator * (const Vector4& v) const {
+			Vector4 result;
+
+			result[0] = mm[0][0] * v[0] + mm[1][0] * v[1] +
+				mm[2][0] * v[2] + mm[3][0] * v[3];
+
+			result[1] = mm[0][1] * v[0] + mm[1][1] * v[1] +
+				mm[2][1] * v[2] + mm[3][1] * v[3];
+
+			result[2] = mm[0][2] * v[0] + mm[1][2] * v[1] +
+				mm[2][2] * v[2] + mm[3][2] * v[3];
+
+			result[3] = mm[0][3] * v[0] + mm[1][3] * v[1] +
+				mm[2][3] * v[2] + mm[3][3] * v[3];
+			return result;
+		}
+
+		Matrix4 operator *(Matrix4 rhs) const
+		{
+			return Matrix3(
+				m1 * rhs.m1 + m4 * rhs.m2 + m7 * rhs.m3,
+				m2 * rhs.m1 + m5 * rhs.m2 + m8 * rhs.m3,
+				m3 * rhs.m1 + m6 * rhs.m2 + m9 * rhs.m3,
+
+				m1 * rhs.m4 + m4 * rhs.m5 + m7 * rhs.m6,
+				m2 * rhs.m4 + m5 * rhs.m5 + m8 * rhs.m6,
+				m3 * rhs.m4 + m6 * rhs.m5 + m9 * rhs.m6,
+
+				m1 * rhs.m7 + m4 * rhs.m8 + m7 * rhs.m9,
+				m2 * rhs.m7 + m5 * rhs.m8 + m8 * rhs.m9,
+				m3 * rhs.m7 + m6 * rhs.m8 + m9 * rhs.m9);
+		}
+
 		void Matrix4::setScaled(float x, float y, float z) 
 		{
 			xAxis = { x, 0, 0, 0 };

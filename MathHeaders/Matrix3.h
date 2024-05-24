@@ -38,17 +38,7 @@ namespace MathClasses
 			m9 = M9;
 		}
 
-		Matrix3(float a[])
-		{
-			for (int i = 0; i < 9; i++)
-			{
-				v[i] = a[i];
-			}
-		}
-
-		operator float* () { return v; }
-
-		operator const float* () const { return v; }
+		
 
 		static Matrix3 MakeIdentity()
 		{
@@ -150,16 +140,6 @@ namespace MathClasses
 			return Matrix3(m1, m4, m7, m2, m5, m8, m3, m6, m9);
 		}
 
-		std::string ToString() const
-		{
-			std::string str = std::to_string(v[0]);
-			for (size_t i = 1; i < 9; ++i)
-			{
-				str += ", " + std::to_string(v[i]);
-			}
-			return str;
-		}
-
 		static Matrix3 MakeRotateX(float a)
 		{
 			return Matrix3(1, 0, 0,
@@ -203,7 +183,29 @@ namespace MathClasses
 			return MakeScale(scale.x, scale.y, scale.z);
 		}
 
+		//CASTING =-
 
+		operator float* () { return v; }
+
+		operator const float* () const { return v; }
+
+		Matrix3(float a[])
+		{
+			for (int i = 0; i < 9; i++)
+			{
+				v[i] = a[i];
+			}
+		}
+
+		std::string ToString() const
+		{
+			std::string str = std::to_string(v[0]);
+			for (size_t i = 1; i < 9; ++i)
+			{
+				str += ", " + std::to_string(v[i]);
+			}
+			return str;
+		}
 	};
 	
 }
