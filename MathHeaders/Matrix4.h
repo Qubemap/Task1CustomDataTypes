@@ -100,20 +100,23 @@ namespace MathClasses
 			return result;
 		}
 
-		Matrix4 operator *(Matrix4 rhs) const
+		Matrix4 operator * (const Matrix4& other) const
 		{
-			return Matrix3(
-				m1 * rhs.m1 + m4 * rhs.m2 + m7 * rhs.m3,
-				m2 * rhs.m1 + m5 * rhs.m2 + m8 * rhs.m3,
-				m3 * rhs.m1 + m6 * rhs.m2 + m9 * rhs.m3,
+			Matrix4 result;
 
-				m1 * rhs.m4 + m4 * rhs.m5 + m7 * rhs.m6,
-				m2 * rhs.m4 + m5 * rhs.m5 + m8 * rhs.m6,
-				m3 * rhs.m4 + m6 * rhs.m5 + m9 * rhs.m6,
-
-				m1 * rhs.m7 + m4 * rhs.m8 + m7 * rhs.m9,
-				m2 * rhs.m7 + m5 * rhs.m8 + m8 * rhs.m9,
-				m3 * rhs.m7 + m6 * rhs.m8 + m9 * rhs.m9);
+			for (int r = 0; r < 4; ++r) 
+			{
+				for (int c = 0; c < 4; ++c) 
+				{
+					float v = 0.0f;
+					for (int i = 0; i < 4; ++i) 
+					{
+						v += mm[i][r] * other.mm[c][i];
+					}
+					result.mm[c][r] = v;
+				}
+			}
+			return result;
 		}
 
 		void Matrix4::setScaled(float x, float y, float z) 
@@ -135,6 +138,16 @@ namespace MathClasses
 		void Matrix4::translate(float x, float y, float z) {
 			// apply vector offset
 			translation += Vector4(x, y, z, 0);
+		}
+
+		std::string ToString() const
+		{
+			std::string str = std::to_string(v[0]);
+			for (size_t i = 1; i < 16; ++i)
+			{
+				str += ", " + std::to_string(v[i]);
+			}
+			return str;
 		}
 	};
 }

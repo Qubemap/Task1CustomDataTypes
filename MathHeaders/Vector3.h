@@ -153,15 +153,23 @@ namespace MathClasses
 
 		//distance between points. "The offset between two Points can be found by subtracting one Point from the other. 
 		// The magnitude of the resulting Vector represents the distance between them."
-		float Distance(const Vector3& other)
+		/*static float Distance(const Vector3& other)
 		{
 			return (*this - other).Magnitude();
-		}
+		}*/
 
 		//Normalises the Vector (sets magnitude to 1 unit). think the 3 colored arrows in 3d software
 		void Normalise()
 		{
 			float m = Magnitude();
+
+			if (m == 0)
+			{
+				x = 0;
+				y = 0;
+				z = 0;
+				return;
+			}
 
 			x /= m;
 			y /= m;
