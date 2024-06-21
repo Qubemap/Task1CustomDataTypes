@@ -1,5 +1,6 @@
 #pragma once
 #include "Vector4.h"
+#include "Vector3.h"
 #include <string>
 
 namespace MathClasses
@@ -119,25 +120,98 @@ namespace MathClasses
 			return result;
 		}
 
-		void Matrix4::setScaled(float x, float y, float z) 
+		bool operator == (const Matrix4& other) const
 		{
-			xAxis = { x, 0, 0, 0 };
-			yAxis = { 0, y, 0, 0 };
-			zAxis = { 0, 0, z, 0 };
-			translation = { 0, 0, 0, 1 };
+			const float THRESHOLD = 0.00001f;
+
+			float cmp;
+
+			for (int i = 0; i < 16; i++)
+			{
+				cmp = fabsf(v[i] - other.v[i]);
+				if (cmp >= THRESHOLD)
+				{
+					return false;
+				}
+				i++;
+			}
+
+			return true;
 		}
 
-		void Matrix4::setRotateX(float radians) 
+		static Matrix4 MakeTranslation(float x, float y, float z)
 		{
-			xAxis = { 1, 0, 0, 0 };
-			yAxis = { 0, cosf(radians), sinf(radians), 0 };
-			zAxis = { 0, -sinf(radians), cosf(radians), 0 };
-			translation = { 0, 0, 0, 1 };
+			Matrix4 m;
+			m.xAxis = { 1, 0, 0, 0 };
+			m.yAxis = { 0, 1, 0, 0 };
+			m.zAxis = { 0, 0, 1, 0 };
+			m.translation = {x, y, z, 1 };
+			return m;
 		}
 
-		void Matrix4::translate(float x, float y, float z) {
-			// apply vector offset
-			translation += Vector4(x, y, z, 0);
+		static Matrix4 MakeTranslation(Vector3 vec)
+		{
+			return MakeTranslation(vec.x, vec.y, vec.z);
+		}
+
+		static Matrix4 MakeRotateX(float a)
+		{
+			Matrix4 m;
+			m.xAxis = { 1, 0, 0, 0 };
+			m.yAxis = { 0, cosf(a), -sinf(a), 0 };
+			m.zAxis = { 0, sinf(a), cosf(a), 0 };
+			m.translation = { 0, 0, 0, 1 };
+			return m;
+		}
+
+		static Matrix4 MakeRotateY(float a)
+		{
+			Matrix4 m;
+			m.xAxis = { cosf(a), 0, sinf(a), 0 };
+			m.yAxis = { 0, 1, 0, 0 };
+			m.zAxis = { -sinf(a), 0, cosf(a), 0 };
+			m.translation = { 0, 0, 0, 1 };
+			return m;
+		}
+
+		static Matrix4 MakeRotateZ(float a)
+		{
+			Matrix4 m;
+			m.xAxis = { cosf(a), sinf(a), 0, 0 };
+			m.yAxis = { -sinf(a), cosf(a), 0, 0 };
+			m.zAxis = { 0, 0, 1, 0 };
+			m.translation = { 0, 0, 0, 1 };
+			return m;
+		}
+
+		static Matrix4 MakeEuler(float pitch, float yaw, float roll)
+		{
+			Matrix4 x = MakeRotateX(pitch);
+			Matrix4 y = MakeRotateY(yaw);
+			Matrix4 z = MakeRotateZ(roll);
+
+			//order matters
+			return (z * y * x);
+		}
+
+		static Matrix4 MakeEuler(Vector3 rot)
+		{
+			return MakeEuler(rot.x, rot.y, rot.z);
+		}
+
+		static Matrix4 MakeScale(float xScale, float yScale, float zScale)
+		{
+			Matrix4 m;
+			m.xAxis = { xScale, 0, 0, 0 };
+			m.yAxis = { 0, yScale, 0, 0 };
+			m.zAxis = { 0, 0, zScale, 0 };
+			m.translation = { 0, 0, 0, 1 };
+			return m;
+		}
+
+		static Matrix4 MakeScale(Vector3 vec)
+		{
+			return MakeScale(vec.x, vec.y, vec.z);
 		}
 
 		std::string ToString() const
