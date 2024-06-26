@@ -36,6 +36,9 @@
     <ClInclude Include="MathHeaders\Colour.h">
       <Filter>MathHeaders</Filter>
     </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Vector3Tests.cpp">
@@ -54,6 +57,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Matrix4TransformTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ColourTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

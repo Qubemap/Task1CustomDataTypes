@@ -166,8 +166,10 @@
     <ClInclude Include="MathHeaders\Vector3.h" />
     <ClInclude Include="MathHeaders\Vector4.h" />
     <ClInclude Include="TestToString.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ColourTests.cpp" />
     <ClCompile Include="Matrix3Tests.cpp" />
     <ClCompile Include="Matrix3TransformTests.cpp" />
     <ClCompile Include="Matrix4Tests.cpp" />

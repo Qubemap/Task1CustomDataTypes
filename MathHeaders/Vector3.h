@@ -145,18 +145,11 @@ namespace MathClasses
 			return sqrtf(x * x + y * y + z * z);
 		}
 
-		//doesn't return actual distance, only used to determine if farther than another call of this function. redundant imo
+		//doesn't return actual distance, only used to determine if farther than another call of this function.
 		float MagnitudeSqr() const
 		{
 			return x * x + y * y + z * z;
 		}
-
-		//distance between points. "The offset between two Points can be found by subtracting one Point from the other. 
-		// The magnitude of the resulting Vector represents the distance between them."
-		/*static float Distance(const Vector3& other)
-		{
-			return (*this - other).Magnitude();
-		}*/
 
 		//Normalises the Vector (sets magnitude to 1 unit). think the 3 colored arrows in 3d software
 		void Normalise()
